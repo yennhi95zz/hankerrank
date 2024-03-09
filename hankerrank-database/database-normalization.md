@@ -164,7 +164,7 @@ ENROLLMENT table:
 | 1          | MATH202     | 2022-01-05       |
 | 2          | CS101       | 2022-02-20       |
 
-### Question 3: 
+### Question 4: 
 
 A database, normalized as per 2NF rules, has been split into 10 tables. Each of the tables has exactly two columns: one key attribute and one non-key attribute. What is the minimum number of tables required to express this database in 3NF form? Enter the integer in the text box below. Do not leave any leading or trailing spaces.
 
@@ -185,7 +185,7 @@ Since each table only has one non-key attribute, there can be no transitive depe
 
 Therefore, the minimum number of tables required to express the database in 3NF form is the same as the number of tables in 2NF, which is 10.
 
-### Question 4: 
+### Question 5: 
 
 Consider the following relation and determinants.
 
@@ -246,7 +246,7 @@ However, the relation fails to satisfy BCNF due to the functional dependency `a,
 
 Hence, the relation is in 3NF but not in BCNF, as claimed. The maximum possible value of x such that the relation satisfies the *x*NF form is 3.
 
-### Question 5: 
+### Question 6: 
 
 Let us take the example of a simple movie library. Each movie has a description, director, and serial number. Customers have a name, address, and membership number. Assume only one copy of each movie exists in the library. We are given the following relations and determinants. The keys for each relation are CAPITALIZED.
 ```
@@ -289,7 +289,7 @@ Based on these determinants, it appears that there are transitive dependencies a
 
 The correct answer is 2 (Second Normal Form). 
 
-### Question 6: 
+### Question 7: 
 
 Let us take the example of a simple movie library. Each movie has a description, director, and serial number. Customers have a name, address, and membership number. Assume only one copy of each movie exists in the library. We are given the following relations and determinants:
 ```
@@ -335,3 +335,165 @@ Now, considering the determinants:
 The schema appears to be in 3NF as there are no transitive dependencies or partial dependencies. However, it is not in BCNF since the determinant `serialno, date -> memberno` does not satisfy the criteria for BCNF since the candidate key `(serialno, date)` is sufficient to determine `memberno`, and there are no non-trivial dependencies on part of the candidate key.
 
 Therefore, the maximum possible value for xNF is 3.5 (BCNF).
+
+
+### Question 8: 
+
+Let us take the example of a simple movie library. Each movie has a description, director, and serial number. Customers have a name, address, and membership number. Assume only one copy of each movie exists in the library. We are given the following relations and determinants. The keys for each relation are CAPITALIZED.
+
+```
+Relations (The key is CAPITALIZED):
+customer(name,addr,MEMBERNO)
+movie(DESCRIPTION,director,serialno)
+borrow(memberno,DATE,SERIALNO)
+```
+Which of these determinants is a NON-KEY dependency? In the text box, only enter the index number (1-6) of the dependency which you have identified as non-key.
+
+```
+1.  description->director,serialno
+2.  serialno->description
+3.  serialno->director
+4.  name,addr -> memberno
+5.  memberno -> name,addr
+6.  serialno,date -> memberno
+```
+Output Format
+
+In the text box, only enter the index number (1-6) of the dependency which you have identified as non-key.
+
+**ANSWER:** 3
+
+**EXPLANATION:**
+
+Let's analyze each determinant:
+
+- `description->director,serialno`: This determinant involves the primary key (serialno) and is a key dependency.
+
+- `serialno->description`: This determinant involves the primary key (serialno) and is a key dependency.
+
+- `serialno->director`: This determinant involves the primary key (serialno), but it is not a superkey since it does not uniquely determine all other attributes in the relation. Therefore, it is a non-key dependency.
+
+- `name,addr -> memberno`: This determinant involves the primary key (memberno) and is a key dependency.
+
+- `memberno -> name,addr`: This determinant involves the primary key (memberno) and is a key dependency.
+
+- `serialno,date -> memberno`: This determinant involves the primary key (memberno) and is a key dependency.
+
+In summary, determinant 3 (serialno->director) is a non-key dependency as it does not form a superkey for the relation.
+
+
+### Question 9: 
+
+Consider the following relation and determinants. The key(s) are bolded.
+R(**a, b** ,c,d,e)
+
+Which of these determinants is a NON-CANDIDATE key? In the text box, only enter the index number (1-3) of the dependency which you have identified as non-key.
+
+```
+a,c -> b,d,e
+a,d -> b
+a,c,e -> b,d
+```
+
+**ANSWER:** 2
+
+**EXPLANATION:**
+
+**What are superkey, candidate key, and non-candidate key?**
+
+1. Superkey:
+
+- A superkey is a set of one or more attributes that, taken collectively, can uniquely identify a tuple (row) in a relation (table).
+- In other words, a superkey has the property that no two distinct tuples in the relation will have the same combination of values for the attributes in the superkey.
+- A superkey may contain more attributes than necessary to uniquely identify a tuple.
+
+Example:
+
+- Consider a relation "`Student`" with attributes `{Student_ID, Name, Email, Phone}`. The set `{Student_ID, Email}` is a superkey because it uniquely identifies each student.
+
+2. Candidate Key:
+
+- A candidate key is a minimal superkey, meaning it is a superkey with no unnecessary attributes. Removing any attribute from a candidate key would cause it to lose its uniqueness property.
+- In a relation, there can be multiple candidate keys.
+
+Example:
+
+- In the "`Student`" relation, both `{Student_ID}` and `{Email}` are candidate keys because each uniquely identifies a student, and removing any attribute from them would result in a loss of uniqueness.
+
+3. Non-Candidate Key:
+
+- A non-candidate key is any superkey that is not a candidate key. It may contain extra attributes that are not required for unique identification.
+
+Example:
+
+- If we consider the superkey `{Student_ID, Email, Phone}` for the "`Student`" relation, it is a non-candidate key because it contains more attributes than necessary to uniquely identify a student. `{Student_ID}` and `{Email}` are the candidate keys in this case.
+
+In summary:
+
+- A superkey is any set of attributes that uniquely identifies a tuple.
+- A candidate key is a minimal superkey, and a relation can have multiple candidate keys.
+- A non-candidate key is any superkey that is not a candidate key because it contains unnecessary attributes.
+
+----------
+
+For the question above, To identify the non-candidate key, let's analyze each determinant:
+- `a,c→b,d,e`: This determinant seems to suggest that the combination of attributes `a` and `c` uniquely determines attributes `b, d, and e`. Since `a and c` together can determine all the other attributes, it indicates a candidate key or part of a candidate key.
+
+- `a,d→b`: This determinant suggests that the combination of attributes `a and d` uniquely determines attribute b. Since it's not the full set of attributes, 
+`a,d` could potentially be a candidate key. However, since it's not a full superkey (it doesn't determine all the other attributes), it's a non-candidate key.
+- `a,c,e→b,d`: This determinant suggests that the combination of attributes `a, c, and e` uniquely determines attributes `b and d`. Like determinant 1, this could be part of a candidate key.
+
+Therefore, the determinant that represents a non-candidate key is index number 2: `a,d→b`. It's not a full superkey and doesn't determine all other attributes, making it a non-candidate key.
+
+### Question 10: 
+
+The following table stores rows of information about pizza deliveries. The three columns correspond to the `Restaurant name, Crust, Delivery Area`. We convert this table into Fourth Normal Form and so we end up creating two tables, each with two columns and N rows. (Both the new tables have an equal number of rows)
+
+```
+Restaurant  Crust       Delivery Area
+-------------------------------------------
+X Pizza     Thick       Whitefield
+X Pizza     Thick       Greenville
+X Pizza     Thick       Capital
+X Pizza     Stuffed     Whitefield
+X Pizza     Stuffed     Greenville
+X Pizza     Stuffed     Capital
+Papa Pizza  Thin        Capital
+Papa Pizza  Stuffed     Capital
+F1 Pizza    Thick       Whitefield
+F1 Pizza    Thick       Greenville
+F1 Pizza    Thin        Whitefield
+F1 Pizza    Thin        Greenville
+
+```
+In the text box below, enter the value of the integer N.
+
+
+**ANSWER:** 6
+
+**EXPLANATION:**
+
+Table 1:
+```
+Restaurant  Crust
+-----------------
+X Pizza     Thick
+X Pizza     Stuffed
+Papa Pizza  Thin
+Papa Pizza  Stuffed
+F1 Pizza    Thick
+F1 Pizza    Thin
+```
+
+Table 2:
+```
+Crust       Delivery Area
+--------------------------
+Thick       Whitefield
+Thick       Greenville
+Thick       Capital
+Stuffed     Whitefield
+Stuffed     Greenville
+Stuffed     Capital
+Thin        Capital
+```
